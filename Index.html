@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<title>Shopping List</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  
+ <style>
+form 
+{
+    display: inline-block;
+}
+.form-group 
+{
+    text-align: center;
+    padding-bottom: 25px;
+}
+#todo 
+{
+    margin: 0 auto;
+    width: 500px;
+}
+a.close 
+{
+  float: right;
+}
+</style>
+<script>
+$(document).ready(function () 
+{
+    $('button').click(function () 
+	{
+		if($("input[name=product]").val() == "" || $("input[name=quantity]").val() == "")
+		{
+			alert("Please Enter Values.");
+		} 
+		else
+		{
+			if($.isNumeric($("input[name=quantity]").val()) == false)
+			{
+				alert("Please Enter Number");
+				$("input[name=quantity]").val("");
+				$("input[name=quantity]").focus();
+			}
+			else
+			{		
+				$('#todo').append("<tr><td>" + $("input[name=product]").val() +
+				"</td><td>" + $("input[name=quantity]").val() +
+				"</td><td><a href='#' class='close' aria-hidden='true'>&times;</a></td></tr>");
+				$("input[name=product]").val("");
+				$("input[name=quantity]").val("");
+				$("input[name=product]").focus();
+			}
+		}
+    });
+    $("body").on('click', '#todo a', function () 
+	{
+		var r = confirm("You Want To Delete This Item?");
+		if (r == true) 
+		{
+		  $(this).closest("tr").remove();
+		} 
+    });
+});
+</script>
+
+</head>
+<body>
+
+<div class="container" align="center">
+<h1>Shopping List</h1>
+      <form role="form">
+		<table class="table table-success">
+			<tr>
+			<td><b>Product: </b></td><td><input type="text" class="form-control" name="product"></td>
+			<td><b>Quantity: </b></td><td><input type="text" class="form-control" name="quantity"></td>
+			<td><button type="button" class="btn btn btn-info">Add</button></td>
+			</tr>
+		</table>
+    </form>    
+
+  <table class="table table-striped" border="2">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Quntity</th>
+        <th>Remove</th>
+      </tr>
+    </thead>
+    <tbody id="todo"></tbody>
+  </table> 
+</div>  
+</body>
+</html>
